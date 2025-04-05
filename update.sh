@@ -443,6 +443,13 @@ update_nss_pbuf_performance() {
     fi
 }
 
+set_build_signature() {
+    local file="$BUILD_DIR/feeds/luci/modules/luci-mod-status/htdocs/luci-static/resources/view/status/include/10_system.js"
+    if [ -d "$(dirname "$file")" ] && [ -f $file ]; then
+        sed -i "s/(\(luciversion || ''\))/(\1) + (' \/ build by windy')/g" "$file"
+    fi
+}
+
 fix_compile_vlmcsd() {
     local dir="$BUILD_DIR/feeds/packages/net/vlmcsd"
     local patch_src="$BASE_PATH/patches/001-fix_compile_with_ccache.patch"
